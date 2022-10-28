@@ -1,21 +1,18 @@
-// clases => representacion de un objeto que
-//             existe en la vida real
-
 import axios from "axios";
 import {
   Move,
   PokeapiResponse,
 } from "../interfaces/pokeapi-response.interface";
 
-// Forma Abreviada
 export class Pokemon {
   get imageUrl(): string {
+    // el this apunta a la instancia de la clase osea => Pokemon
     return `https://pokemon.com/${this.id}.jpg`;
   }
 
   constructor(
     public readonly id: number,
-    public name: string // public imgUrl: string
+    public name: string // public imageUrl: string
   ) {}
 
   scream() {
@@ -23,13 +20,13 @@ export class Pokemon {
   }
 
   speak() {
-    console.log(`${this.name},${this.name}`);
+    console.log(`${this.name}, ${this.name}`);
   }
 
   async getMoves(): Promise<Move[]> {
     // const moves = 10;
     const { data } = await axios.get<PokeapiResponse>(
-      "https://pokeapi.co/api/v2/pokemon/4"
+      `https://pokeapi.co/api/v2/pokemon/4`
     );
     console.log(data.moves);
 
@@ -39,12 +36,9 @@ export class Pokemon {
 
 export const charmander = new Pokemon(4, "Charmander");
 
-// charmander.id = 10;
-// charmander.name = "dea";
-// console.log(charmander.imageUrl);
-
-// charmander.scream();
+// console.log(charmander);
 // charmander.speak();
+// charmander.scream();
 
 // console.log(charmander.getMoves());
 charmander.getMoves();
